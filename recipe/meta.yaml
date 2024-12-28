@@ -7,21 +7,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/validator-collection-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/validator-collection-{{ version }}.tar.gz
   sha256: f9395cad9a30cb9864fa0c0d18a84daead1eb8807774f4e09f588f89b7dc77d8
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   noarch: python
 
 requirements:
   host:
     - pip
-    - python >=3.4,<4.0
+    - python {{ python_min }}
   run:
     - jsonschema
-    - python >=3.4,<4.0
+    - python >={{ python_min }},<4.0
 
 test:
   imports:
@@ -30,6 +30,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/insightindustry/validator-collection
